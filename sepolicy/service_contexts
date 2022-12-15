@@ -1,0 +1,2 @@
+# Define o rótulo do serviço AIDL safety
+devtitans.safety.ISafety/default  u:object_r:safety_service:s0

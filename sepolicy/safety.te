@@ -1,0 +1,28 @@
+# Cria o tipo/rótulo do serviço AIDL (rotulado no arquivo service_contexts)
+type safety_service, service_manager_type, vendor_service;
+
+# Cria o tipo/rótulo do daemon (rotulado no arquivo file_contexts)
+type safety_daemon, domain;
+type safety_daemon_exec, exec_type, vendor_file_type, file_type;
+
+# Permissões
+init_daemon_domain(safety_daemon);                        # O daemon será iniciado pelo init
+vndbinder_use(safety_daemon);                             # O daemon usará o binder
+allow safety_daemon servicemanager:binder { call transfer };
+
+add_service(safety_daemon, safety_service)             # O daemon irá criar o serviço do safety
+
+# Permite acesso aos arquivos do /sys
+allow safety_daemon sysfs:file { getattr open read write };
+
+# Cria e Permite leitura da propriedades de sistema do safety
+vendor_public_prop(vendor_safety_prop)
+allow safety_daemon vendor_safety_prop:file { open getattr map read };
+
+# Permite que apps privilegiados acessem o daemon e o serviço
+allow platform_app safety_daemon:binder call;
+allow platform_app safety_service:service_manager find;
+
+# Permite que apps normais acessem o daemon e o serviço
+allow untrusted_app safety_daemon:binder call;
+allow untrusted_app safety_service:service_manager find;

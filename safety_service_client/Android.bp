@@ -1,0 +1,9 @@
+cc_binary {
+    name: "safety_service_client",
+    srcs: ["safety_service_client.cpp"],
+    vendor: true,
+    shared_libs: [
+        "libbinder_ndk",
+        "devtitans.safety-V1-ndk_platform",
+    ]
+}

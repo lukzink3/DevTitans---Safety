@@ -1,0 +1,21 @@
+cc_binary {
+    name:                  "devtitans.safety-service",
+    relative_install_path: "hw",                           // HALs ficam armazenados dentro do subdiretório hw do bin
+    init_rc:               ["safety-default.rc"],       // Usado pelo init para iniciar o serviço
+    vintf_fragments:       ["safety-default.xml"],      // Este módulo "provê" o serviço Safety
+    vendor:                true,
+
+    shared_libs: [
+        "libbase",                                         // Contém o logging e centenas de métodos convenientes (usamos só o logging) 
+        "libbinder_ndk",                                   // Biblioteca do binder usada na criação de HALs
+        "safety_lib",                                   // Biblioteca do safety criada anteriormente
+        "devtitans.safety-V1-ndk_platform",             // Biblioteca criada automaticamente pelo AIDL do safety
+    ],
+
+    srcs: [
+        "safety_service.cpp",
+        "main.cpp"
+    ],
+
+    required: [ "safety_lib" ],
+}

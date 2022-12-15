@@ -21,4 +21,20 @@ PRODUCT_VENDOR_PROPERTIES += \
     ro.vendor.devtitans.hardware=ModelB
 
 # Seta o diretório de overlays
-PRODUCT_PACKAGE_OVERLAYS = device/devtitans/kraken/overlay
+PRODUCT_PACKAGE_OVERLAYS = device/devtitans/safety/overlay
+
+PRODUCT_PACKAGES += \
+    safety_client
+
+BOARD_SEPOLICY_DIRS += device/devtitans/safety/sepolicy
+# Smartlamp AIDL Interface
+PRODUCT_PACKAGES += devtitans.safety
+
+# Smartlamp Binder Service
+PRODUCT_PACKAGES += devtitans.safety-service
+
+# Device Framework Matrix (Declara que o nosso produto Kraken precisa do serviço smartlamp)
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := device/devtitans/safety/device_framework_matrix.xml
+
+# Cliente de Linha de Comando para o Serviço Smartlamp
+PRODUCT_PACKAGES += safety_service_client

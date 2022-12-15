@@ -1,0 +1,3 @@
+# Define o rótulo do daemon safety
+/vendor/bin/hw/devtitans.safety-service  u:object_r:safety_daemon_exec:s0
+

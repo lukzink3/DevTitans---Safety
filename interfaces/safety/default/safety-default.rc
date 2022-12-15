@@ -1,0 +1,5 @@
+service devtitans.safety-service /vendor/bin/hw/devtitans.safety-service
+        interface aidl devtitans.safety.ISafety/default
+        class hal
+        user root
+        group root
